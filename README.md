@@ -92,6 +92,4 @@ Genera `cante100_features_v3.csv` con 100 filas × 60 columnas.
 
 ## Author
 
-Laura Ortega — professional pianist (classical and flamenco), Data Scientist and AI.  
-Currently enrolled in the Cambridge Data Science Career Accelerator.  
-This project is part of a portfolio built to apply to BMAT Music Innovators (Barcelona).
+Laura Ortega — professional pianist (classical and flamenco), Data Scientist and AI.
