@@ -50,6 +50,8 @@ if uploaded is not None:
         tmp.write(uploaded.read())
         tmp_path = tmp.name
 
+    st.write("Procesando...")
+
     with st.spinner("Extracting audio features… this takes 20–40 seconds."):
         try:
             feats = extract_features(tmp_path, palo_template=FALLBACK_TEMPLATE)
@@ -68,9 +70,13 @@ if uploaded is not None:
         st.error(f"Could not load model: {exc}")
         st.stop()
 
-    X = pd.DataFrame([feats])[feature_cols]
-    proba = pipeline.predict_proba(X)[0]
-    classes = pipeline.classes_
+    try:
+        X = pd.DataFrame([feats])[feature_cols]
+        proba = pipeline.predict_proba(X)[0]
+        classes = pipeline.classes_
+    except Exception as exc:
+        st.error(f"Prediction failed: {exc}")
+        st.stop()
 
     max_idx = int(np.argmax(proba))
     predicted = classes[max_idx]
