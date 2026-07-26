@@ -1,0 +1,7 @@
+librosa
+scipy
+pandas
+numpy
+scikit-learn
+joblib
+streamlit
