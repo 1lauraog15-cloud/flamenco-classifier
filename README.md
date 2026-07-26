@@ -49,6 +49,18 @@ Calculadas sobre el ciclo de 12 pulsos con `offset_beats=-2`, usando la plantill
 
 ---
 
+## Results
+
+| Model | CV F1-macro | Std |
+|---|---|---|
+| Random Forest (v3) | 0.645 | ±0.115 |
+| Gradient Boosting | 0.610 | ±0.218 |
+| SVM (RBF) | 0.580 | ±0.164 |
+
+Best model: Random Forest. Seguiriyas and bulerías are best classified; soleares is the weakest class (shared Phrygian mode with seguiriyas, shared 12-beat compás with bulerías and alegrías).
+
+---
+
 ## Uso
 
 ```bash
@@ -78,7 +90,8 @@ Genera `cante100_features_v3.csv` con 100 filas × 60 columnas.
 
 ---
 
-## Autor
+## Author
 
-Laura Ortega — investigación en musicología computacional del flamenco  
-ESMUC / Universitat Pompeu Fabra
+Laura Ortega — professional pianist (classical and flamenco) transitioning into Data Science and AI.  
+Currently enrolled in the Cambridge Data Science Career Accelerator.  
+This project is part of a portfolio built to apply to BMAT Music Innovators (Barcelona).
