@@ -7,13 +7,13 @@ import numpy as np
 import pandas as pd
 import streamlit as st
 
-DESKTOP = os.path.expanduser("~/Desktop")
-sys.path.insert(0, DESKTOP)
+_HERE = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, _HERE)
 
 from flamenco import extract_features
 from palo_templates import PALO_TEMPLATES
 
-MODEL_PATH = os.path.join(DESKTOP, "flamenco_classifier_v3.joblib")
+MODEL_PATH = os.path.join(_HERE, "flamenco_classifier_v3.joblib")
 FALLBACK_TEMPLATE = PALO_TEMPLATES["soleá"]
 CONFIDENCE_THRESHOLD = 0.4
 

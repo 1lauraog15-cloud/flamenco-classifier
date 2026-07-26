@@ -121,6 +121,8 @@ def to_dataframe(templates: dict):
 
 
 if __name__ == "__main__":
+    import pathlib
     df = to_dataframe(PALO_TEMPLATES)
-    df.to_csv("/home/claude/flamenco_templates/palo_templates_long.csv", index=False)
+    out = pathlib.Path(__file__).parent / "palo_templates_long.csv"
+    df.to_csv(out, index=False)
     print(df.to_string(index=False))

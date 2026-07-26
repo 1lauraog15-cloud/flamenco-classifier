@@ -177,10 +177,11 @@ def extract_positional_features(result, palo_template, offset_beats=-2):
 
 if __name__ == "__main__":
     DESKTOP_FOLDER = os.path.expanduser("~/Desktop/cante100audio")
+    OFFSET_BEATS = -2       # audio empieza en flamenco "3", faltan pulsos 1 y 2
 
     candidates = find_audio_file(DESKTOP_FOLDER, keywords=["037"])
     if not candidates:
-     candidates = find_audio_file(DESKTOP_FOLDER, keywords=["rebato"])
+        candidates = find_audio_file(DESKTOP_FOLDER, keywords=["rebato"])
 
     if not candidates:
         print(f"No he encontrado el track en {DESKTOP_FOLDER}. "
@@ -191,29 +192,21 @@ if __name__ == "__main__":
         for c in candidates:
             print(" -", c)
     else:
-            result = analyze_track(candidates[0])
-            compare_to_template(result, palo="seguiriya")
-            feats = extract_positional_features(
-                result, PALO_TEMPLATES['seguiriya'], offset_beats=-2)
-            print("\n--- Features posicionales extraídos ---")
-            for k, v in feats.items():
-                print(f"  {k}: {v}")
+        result = analyze_track(candidates[0])
+        compare_to_template(result, palo="seguiriya")
+        feats = extract_positional_features(
+            result, PALO_TEMPLATES['seguiriya'], offset_beats=OFFSET_BEATS)
+        print("\n--- Features posicionales extraídos ---")
+        for k, v in feats.items():
+            print(f"  {k}: {v}")
 
-# Offset anotado manualmente: el "3" flamenco cae en t=0s (inicio del audio)
-# Duración media del ciclo medida a oído: ~6s
-# Con 12 pulsos por ciclo y pulso cada ~0.48s, el primer beat de librosa
-# (t=0.39s) es aproximadamente el pulso 1 flamenco real
-
-            OFFSET_BEATS = -2  # audio empieza en flamenco "3", faltan pulsos 1 y 2
-            CYCLE_DURATION_S = 6.0  # segundos por ciclo de 12 pulsos
-
-            print("\n--- Reancla con offset manual ---")
-            print("Posiciones 3 y 10 en cada ciclo (grado armónico):")
-            for ciclo in range(25):
-                base = ciclo * 12 + OFFSET_BEATS
-                for pos_flamenca in [3, 10]:
-                    idx = base + (pos_flamenca - 1)
-                    if idx < len(result['degrees']):
-                        t = result['beat_times'][idx]
-                        g = result['degrees'][idx]
-                        print(f"  Ciclo {ciclo+1:2d} | pos {pos_flamenca:2d} | t={t:.2f}s | grado {g:2d}")
+        print("\n--- Reancla con offset manual ---")
+        print("Posiciones 3 y 10 en cada ciclo (grado armónico):")
+        for ciclo in range(25):
+            base = ciclo * 12 + OFFSET_BEATS
+            for pos_flamenca in [3, 10]:
+                idx = base + (pos_flamenca - 1)
+                if idx < len(result['degrees']):
+                    t = result['beat_times'][idx]
+                    g = result['degrees'][idx]
+                    print(f"  Ciclo {ciclo+1:2d} | pos {pos_flamenca:2d} | t={t:.2f}s | grado {g:2d}")
